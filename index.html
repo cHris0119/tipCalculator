@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="./images/favicon-32x32.png"
+    />
+    <title>Frontend Mentor | Tip calculator app</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main>
+      <form class="container">
+        <section class="left">
+          <div class="container-section">
+            <div class="container-label">
+
+              <label for="bill">Bill</label><span class="span">Can't be zero</span>
+            </div>
+            <input
+              type="number"
+              name="bill"
+              id="bill"
+              value="0"
+              class="bill"
+              min="1"
+            />
+          </div>
+
+          <div class="container-section">
+            <label for="selectTip">Select Tip %</label>
+            <div class="selectTip-container">
+              <input type="button" value="5%" class="tip" />
+              <input type="button" value="10%" class="tip" />
+              <input type="button" value="15%" class="tip" />
+              <input type="button" value="25%" class="tip" />
+              <input type="button" value="50%" class="tip" />
+              <input id="custom" type="Number"  max="99" placeholder="Custom" value=""  class="tip" />
+            </div>
+          </div>
+
+          <div class="container-section">
+            <div class="container-label">
+              <label for="NumberPeople">Number of people </label><span class="span">Can't be zero</span>
+            </div>
+            
+
+            <input id="people" class="people" min="1"  type="number" value="1" />
+          </div>
+        </section>
+
+        <section class="right">
+          <div class="right-container">
+            <div class="container-section row">
+              <h3>Tip Amount</h3>
+              <input  id="tipAmount" type="number" value="0" disabled/>
+            </div>
+            <div class="container-section row">
+              <h3>Total</h3>
+              <input  id="total" type="number" value="0" disabled/>
+
+            </div>
+          </div>
+          <input id="reset" class="reset" type="submit" value="RESET" disabled>
+        </section>
+      </form>
+    </main>
+
+    <!-- 5% 10% 15% 25% 50% Custom Number of People Tip Amount / person Total /
+    person Reset -->
+
+    <!-- <div class="attribution">
+      Challenge by
+      <a href="https://www.frontendmentor.io?ref=challenge" target="_blank"
+        >Frontend Mentor</a
+      >. Coded by <a href="#">Your Name Here</a>.
+    </div> -->
+
+    <script src="script.js"></script>
+  </body>
+</html>
