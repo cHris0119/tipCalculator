@@ -9,6 +9,8 @@ let $input = document.querySelectorAll('input')
 let $bill = document.getElementById('bill')
 let $people = document.getElementById('people')
 
+let tip = 0
+
 
 
 
@@ -19,61 +21,23 @@ const resetBtnStyle = () => {
   $custom.classList.remove('active-custom')
 }
 
-document.addEventListener("click", (e) => {
+document.addEventListener("click", (e)=>{
 
-  if(e.target.type === "button"){
-    let bill = parseFloat($bill.value)
-    let people = parseFloat($people.value)
-    resetBtnStyle()
-    e.target.classList.add('active-btn')
-    
-    if(parseFloat($total.value) > 0){
-      let tip = bill * (parseFloat(e.target.value)/100)
-      let total = (bill + tip) / people
-      total = total.toFixed(1)
-      $total.value = total
-      console.log(total)
-    }
-  };
-
-  if(e.target.matches('#custom')){
-    resetBtnStyle()
-    e.target.classList.add('active-custom')
-    if(e.target.value === ''){
-      e.target.value = '0'
-    }
-  }
-
-  if(e.target.matches('.bill') || e.target.matches('.people')){
-    let span = e.target.previousElementSibling.lastElementChild
-    
-    if(e.target.value <= '0'){
-      e.target.value = ''
-      span.style.display = 'block'
-    }
-    e.target.addEventListener('input', e => {
-      let bill = parseFloat($bill.value)
-      let people = parseFloat($people.value)
-      if(e.target.value > '0'){
-        span.style.display = 'none'
-        if(e.target.matches('.bill')){
-          let total = bill/people
-          total = total.toFixed(1)
-          console.log(total)
-          $total.value = total
-        }
-        if(e.target.matches('.people')){
-          let total = bill/people
-          total = total.toFixed(1)
-          console.log(total)
-          $total.value = total
-        }
-      } else{
-        $total.value = '0'
-        span.style.display = 'block'
+  // RESET DATOS ✅
+  $input.forEach(el => {
+    if(el.type === 'number'){
+      if(el.value >= 2 ){
+        $reset.classList.add('active-btn')
+        $reset.disabled = false
       }
+    }
+    if(el.type === 'button'){
+      if(el.classList.contains('active-btn')){
+        $reset.classList.add('active-btn')
+        $reset.disabled = false
+      }}
     })
-  }
+
   if(e.target.matches('#reset')){
     e.preventDefault()
     $input.forEach(el =>{
@@ -88,27 +52,60 @@ document.addEventListener("click", (e) => {
     })
   }
 
-  $input.forEach(el => {
-    if(el.type === 'number'){
-      if(el.value >= 2 ){
-        $reset.classList.add('active-btn')
-        $reset.disabled = false
-      }
-    }
-    if(el.type === 'button'){
-      if(el.classList.contains('active-btn')){
-        $reset.classList.add('active-btn')
-        $reset.disabled = false
-      }
-     
-    }
-
-  })
   
-});
+  // AGREGAR TIP ✅
+  if(e.target.matches(".tip")){
+
+    tip = parseInt(e.target.value) / 100
+    $tipAmount.value = Math.round((tip * $bill.value) / $people.value)
+
+    const total = parseInt($bill.value) + (tip * $bill.value) 
+    $total.value = Math.round(total / $people.value)
+
+    if(e.target.matches("#custom")){
+      document.addEventListener("input", (e) => {
+        if(e.target.value.length > 99) return $custom.value = 0
+        $custom.value = e.target.value
+        console.log($custom.value)
+        
+      })
+      
+    }
+    
+  }
 
 
+})
 
+document.addEventListener("input", (e)=>{
+ 
+  
+  // MOSTRAR TOTAL ✅
+  if(e.target.matches("#bill")){
+    
+    if(parseFloat(e.target.value) < 0.0) return;
+    $tipAmount.value = Math.round((tip * $bill.value) / $people.value)
+   
+    const total = (tip * $bill.value) 
+    
+    $total.value = Math.round(parseInt(e.target.value) + parseInt(total))
+  }
+  
+  // NUMERO DE PERSONAS
+  if(e.target.matches(".people")){
+    $tipAmount.value = Math.round((tip * $bill.value) / $people.value)
+
+    const total = parseInt($bill.value) + (tip * $bill.value) 
+
+    $people.value = parseInt(e.target.value)
+
+
+    $total.value = Math.round(total / $people.value)
+  }
+  
+}
+
+)
 
 
 
